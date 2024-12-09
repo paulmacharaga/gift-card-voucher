@@ -16,7 +16,7 @@ html {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #dc3545, #bb2d3b);
+    background: linear-gradient(135deg, #dc3545, #ff4d5e);
     padding: 80px 0;
     color: white;
     position: relative;
@@ -39,81 +39,103 @@ html {
     z-index: 2;
 }
 
-.hero {
-    padding: 4rem 0;
-    background-color: #f8f9fa;
-}
-
-.hero-content {
-    min-height: 400px;
-}
-
-.hero-categories .btn {
-    padding: 1rem;
-    transition: all 0.3s ease;
-    border-width: 2px;
-    font-weight: 500;
-}
-
-.hero-categories .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.hero-categories .btn i {
-    font-size: 1.2rem;
-}
-
 /* Category Cards */
-.category-card {
-    transition: transform 0.2s, box-shadow 0.2s;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    cursor: pointer;
-}
-
-.category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
 .card-category {
-    border: none;
-    background: none;
-    transition: transform 0.2s;
-    width: 100%;
-    padding: 10px;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: white;
+    overflow: hidden;
+    position: relative;
 }
 
 .card-category:hover {
-    transform: scale(1.05);
+    transform: translateY(-5px);
+    border-color: #dc3545;
+    box-shadow: 0 10px 20px rgba(220, 53, 69, 0.15);
 }
 
-.card-category.active {
-    background-color: rgba(220, 53, 69, 0.1);
-    border-radius: 8px;
+.card-category.selected {
+    border-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.05);
+    box-shadow: 0 10px 25px rgba(220, 53, 69, 0.2);
 }
 
-.card-category:hover .logo-placeholder {
-    background-color: rgba(220, 53, 69, 0.1);
+.card-category .card-body {
+    padding: 1.5rem;
+    text-align: center;
 }
 
-.category-card .card-header {
-    background: linear-gradient(135deg, #dc3545, #bb2d3b);
+.card-category .category-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1rem;
+    background: rgba(220, 53, 69, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.card-category:hover .category-icon,
+.card-category.selected .category-icon {
+    background: #dc3545;
     color: white;
-    border: none;
+    transform: scale(1.1);
 }
 
-/* Hero Categories */
-.hero-categories .btn-outline-primary {
+.card-category h5 {
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.card-category:hover h5,
+.card-category.selected h5 {
     color: #dc3545;
-    border-color: #dc3545;
 }
 
-.hero-categories .btn-outline-primary:hover {
-    background-color: #dc3545;
-    border-color: #dc3545;
-    color: white;
+.card-category p {
+    color: #666;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+.card-category::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: #dc3545;
+    transition: width 0.3s ease;
+}
+
+.card-category:hover::after,
+.card-category.selected::after {
+    width: 100%;
+}
+
+/* Category selection animation */
+@keyframes categorySelect {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.card-category.selected {
+    animation: categorySelect 0.3s ease-in-out;
 }
 
 /* How It Works Section */
@@ -372,7 +394,7 @@ input[type="radio"]:checked + .design-placeholder {
 }
 
 .gift-card-front {
-    background: linear-gradient(135deg, #dc3545, #bb2d3b);
+    background: linear-gradient(135deg, #dc3545, #ff4d5e);
     color: white;
     z-index: 2;
     transform-style: preserve-3d;
@@ -471,8 +493,8 @@ input[type="radio"]:checked + .design-placeholder {
 }
 
 .btn-primary:hover {
-    background-color: #bb2d3b;
-    border-color: #bb2d3b;
+    background-color: #c82333;
+    border-color: #c82333;
     transform: translateY(-1px);
 }
 
@@ -565,7 +587,7 @@ input[type="radio"]:checked + .design-placeholder {
 }
 
 .gift-card-front {
-    background: linear-gradient(135deg, #dc3545, #bb2d3b);
+    background: linear-gradient(135deg, #dc3545, #ff4d5e);
     color: white;
 }
 
@@ -872,329 +894,191 @@ input[type="radio"]:checked + .design-placeholder {
     transform: scale(1);
 }
 
-/* Gift Card Modal Styles */
-#giftCardModal .modal-dialog {
-    max-width: 90%;
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1050;
+    background: none;
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
     margin: 1.75rem auto;
+    max-width: 800px;
+    z-index: 1051;
 }
 
-#giftCardModal .modal-content {
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-#giftCardModal .modal-header {
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    padding: 1.5rem;
-    background-color: #f8f9fa;
-    border-radius: 15px 15px 0 0;
-}
-
-#giftCardModal .modal-body {
-    padding: 0;
-}
-
-#giftCardModal .modal-title {
-    color: #333;
-    font-weight: 600;
-}
-
-#giftCardModal .btn-close {
-    opacity: 0.5;
-    transition: opacity 0.2s;
-}
-
-#giftCardModal .btn-close:hover {
-    opacity: 1;
-}
-
-/* Category Cards in Modal */
-#giftCardModal .category-card {
-    transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer;
-}
-
-#giftCardModal .category-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-#giftCardModal .logo-placeholder {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-}
-
-#giftCardModal .card-category:hover .logo-placeholder {
-    background-color: #e9ecef;
-}
-
-/* Form Sections in Modal */
-#giftCardModal .form-section {
-    padding: 1.5rem;
+.modal-content {
+    position: relative;
     background-color: #fff;
-    border-radius: 10px;
-    margin-bottom: 1rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 1052;
 }
 
-#giftCardModal .form-section h5 {
-    color: #333;
-    margin-bottom: 1.5rem;
-}
-
-/* Enhanced Modal Animation */
-.modal.fade .modal-dialog {
-    transform: scale(0.9);
-    opacity: 0;
-    transition: all 0.3s ease-out;
-}
-
-.modal.show .modal-dialog {
-    transform: scale(1);
-    opacity: 1;
-}
-
-/* Scrollable Modal Content */
-#giftCardModal .modal-body {
-    max-height: calc(100vh - 210px);
-    overflow-y: auto;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    #giftCardModal .modal-dialog {
-        max-width: 95%;
-        margin: 1rem auto;
-    }
-    
-    #giftCardModal .form-section {
-        padding: 1rem;
-    }
-}
-
-/* Modal Styles */
-.modal-dialog-scrollable .modal-content {
-    max-height: 90vh;
+.modal-header {
+    padding: 1rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 .modal-body {
-    padding: 0;
-}
-
-/* Category Section */
-.category-card {
-    transition: transform 0.2s ease-in-out;
-    cursor: pointer;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.category-card:hover {
-    transform: translateY(-5px);
-}
-
-.card-category {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: none;
-    padding: 0;
-    transition: all 0.2s ease;
-}
-
-.card-category.active {
-    background-color: rgba(220, 53, 69, 0.1);
-    border-radius: 8px;
-}
-
-.logo-placeholder {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s ease;
-}
-
-.card-category:hover .logo-placeholder {
-    background-color: #e9ecef;
-}
-
-/* Value Section */
-.value-selection {
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-/* Personalization Form */
-.form-section {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.contact-toggle .btn-group {
-    width: 100%;
-}
-
-.contact-toggle .btn {
-    flex: 1;
-}
-
-/* Design Selection */
-.design-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.design-label {
-    cursor: pointer;
-}
-
-.design-placeholder {
-    border: 2px solid #dee2e6;
-    border-radius: 8px;
     padding: 1rem;
-    text-align: center;
-    transition: all 0.2s ease;
 }
 
-input[type="radio"]:checked + .design-placeholder {
-    border-color: #dc3545;
-    background-color: rgba(220, 53, 69, 0.1);
+.modal-footer {
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
-.design-preview {
+/* Center modal vertically */
+.modal-dialog-centered {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    min-height: calc(100% - 3.5rem);
 }
 
-.design-icon {
-    font-size: 2rem;
-    color: #dc3545;
-    margin-bottom: 0.5rem;
+/* Remove any transform animations that might interfere */
+.modal.fade .modal-dialog {
+    transform: none !important;
+    transition: none !important;
 }
 
-/* Preview Modal */
-.gift-card-preview {
-    perspective: 1000px;
-    max-width: 500px;
-    margin: 0 auto;
+.modal.show .modal-dialog {
+    transform: none !important;
 }
 
-.gift-card-inner {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    text-align: center;
-    transition: transform 0.8s;
-    transform-style: preserve-3d;
-    cursor: pointer;
+/* Remove modal backdrop */
+.modal-backdrop {
+    display: none !important;
 }
 
-.gift-card-preview:hover .gift-card-inner {
-    transform: rotateY(180deg);
+/* Modal styles */
+.modal {
+    background: none !important;
 }
 
-.gift-card-front, .gift-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
+.modal-dialog {
+    margin: 1.75rem auto;
+    max-width: 800px;
+}
+
+.modal-content {
+    background-color: #fff;
     border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.gift-card-front {
-    background: linear-gradient(135deg, #dc3545, #bb2d3b);
-    color: white;
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    padding: 1rem;
 }
 
-.gift-card-back {
-    background: linear-gradient(135deg, #bb2d3b, #dc3545);
-    color: white;
-    transform: rotateY(180deg);
+.modal-body {
+    padding: 1rem;
 }
 
-.gift-card-header {
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 1rem;
+}
+
+/* Center modal */
+.modal-dialog-centered {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    min-height: calc(100% - 3.5rem);
 }
 
-.gift-card-value {
-    font-size: 2rem;
-    font-weight: bold;
+/* Gift Card Preview with Company Details */
+.gift-card-preview {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.gift-card-message {
-    font-size: 1.1rem;
-    margin: 2rem 0;
-    min-height: 80px;
+.card-design {
+    position: relative;
+    border: 2px solid #dc3545;
+    border-radius: 12px;
+    padding: 2rem;
+    background: white;
 }
 
-.gift-card-footer {
-    position: absolute;
-    bottom: 20px;
-    width: calc(100% - 40px);
-    display: flex;
-    justify-content: space-between;
+.company-details {
+    border-bottom: 2px solid rgba(220, 53, 69, 0.1);
+    padding-bottom: 1.5rem;
 }
 
-.gift-card-details {
-    text-align: left;
+.company-logo img {
+    max-width: 200px;
+    height: auto;
 }
 
-.details-row {
+#previewCompanyName {
+    color: #dc3545;
+    font-weight: 600;
     margin: 1rem 0;
-    display: flex;
-    justify-content: space-between;
 }
 
-.gift-card-terms {
-    position: absolute;
-    bottom: 20px;
-    width: calc(100% - 40px);
+.gift-card-content {
+    padding-top: 1.5rem;
+}
+
+.amount-display {
+    background: rgba(220, 53, 69, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.gift-amount {
+    color: #dc3545;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.message-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.gift-message {
+    font-style: italic;
+    color: #495057;
+    margin: 0;
+}
+
+.recipient-info {
     text-align: center;
+    padding: 1rem;
+    background: rgba(220, 53, 69, 0.05);
+    border-radius: 8px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .modal-dialog-scrollable {
-        max-height: 100vh;
-    }
-    
-    .design-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    }
-    
-    .gift-card-inner {
-        height: 250px;
-    }
-    
-    .gift-card-value {
-        font-size: 1.5rem;
-    }
-    
-    .gift-card-message {
-        font-size: 1rem;
-        min-height: 60px;
-    }
+.recipient-info p {
+    margin: 0.5rem 0;
+    color: #495057;
+}
+
+.recipient-info span {
+    font-weight: 600;
+    color: #dc3545;
 }

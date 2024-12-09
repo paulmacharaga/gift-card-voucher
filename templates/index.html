@@ -10,23 +10,7 @@
             <div class="col-lg-6">
                 <h1>Create Beautiful Digital Gift Cards</h1>
                 <p class="lead">Personalize and share digital gift cards instantly. Perfect for any occasion!</p>
-                <div class="hero-categories mb-4">
-                    <div class="row g-3">
-                        {% for category in categories %}
-                        <div class="col-md-4">
-                            <button class="btn btn-outline-danger w-100 hero-category" 
-                                    data-card-id="{{ category.cards[0].id }}"
-                                    data-card-name="{{ category.cards[0].name }}">
-                                <i class="fas fa-gift me-2"></i>
-                                {{ category.name }}
-                            </button>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </div>
-                <button class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#giftCardModal">
-                    See All Categories
-                </button>
+                <a href="#main-content" class="btn btn-primary btn-lg">Get Started</a>
             </div>
             <div class="col-lg-6 text-center">
                 <svg class="img-fluid" width="400" height="300" viewBox="0 0 400 300">
@@ -49,7 +33,7 @@
                     {% for category in categories %}
                     <div class="col-md-4 mb-4">
                         <div class="card category-card h-100">
-                            <div class="card-header bg-danger text-white">
+                            <div class="card-header bg-primary text-white">
                                 <h5 class="card-title text-center mb-0">{{ category.name }}</h5>
                             </div>
                             <div class="card-body">
@@ -145,286 +129,236 @@
                 </div>
             </div>
         </section>
-    </div>
-</div>
 
-<!-- Gift Card Creation Modal -->
-<div class="modal fade" id="giftCardModal" tabindex="-1" aria-labelledby="giftCardModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title text-danger" id="giftCardModalLabel">Create Your Gift Card</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-0">
-                <!-- Categories Section -->
-                <div id="categorySection">
-                    <div class="p-4">
-                        <h2 class="text-center mb-4">Choose Your Gift Card Category</h2>
-                        <div class="row">
-                            {% for category in categories %}
-                            <div class="col-md-4 mb-4">
-                                <div class="card category-card h-100">
-                                    <div class="card-header bg-danger text-white">
-                                        <h5 class="card-title text-center mb-0">{{ category.name }}</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            {% for card in category.cards %}
-                                            <div class="col-4 text-center">
-                                                <button class="btn card-category p-2" 
-                                                        data-card-id="{{ card.id }}"
-                                                        data-card-name="{{ card.name }}"
-                                                        data-card-logo="{{ card.logo }}">
-                                                    <div class="logo-placeholder">
-                                                        <span class="text-muted">{{ card.name }}</span>
-                                                    </div>
-                                                    <p class="mt-2 mb-0">{{ card.name }}</p>
-                                                </button>
+        <!-- Gift Card Creation Forms -->
+        <div id="giftCardForms" style="display: none;">
+            <div class="container-fluid">
+                <div id="valueSection" style="display: none;">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-9">
+                            <div class="card">
+                                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                                    <h4 class="mb-0">Selected Gift Card</h4>
+                                    <button id="backToCategory" class="btn btn-outline-light">Change Selection</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="selected-card-details mb-4">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4 text-center">
+                                                <div class="selected-card-logo mb-3">
+                                                    <img id="selectedCardLogo" src="" alt="Card Logo" class="img-fluid" style="max-width: 150px; max-height: 150px;">
+                                                </div>
                                             </div>
-                                            {% endfor %}
+                                            <div class="col-md-8">
+                                                <h3 id="selectedCardName" class="mb-3"></h3>
+                                                <p id="selectedCardDescription" class="text-muted"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="value-selection">
+                                        <h5>Select Gift Card Value</h5>
+                                        <div class="mb-3">
+                                            <label for="cardValue" class="form-label">Amount ($10 - $500)</label>
+                                            <input type="number" class="form-control" id="cardValue" min="10" max="500" step="10" value="50">
+                                        </div>
+                                        <div class="d-flex justify-content-between">
+                                            <button id="backToCategory" class="btn btn-secondary">Back</button>
+                                            <button id="proceedToPersonalization" class="btn btn-primary">Continue to Personalization</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {% endfor %}
                         </div>
                     </div>
                 </div>
 
-                <!-- Gift Card Forms -->
-                <div id="giftCardForms" style="display: none;">
-                    <!-- Value Section -->
-                    <div id="valueSection" style="display: none;">
-                        <div class="p-4">
-                            <h4 class="text-center mb-4">Select Gift Card Value</h4>
-                            <div class="value-selection">
-                                <!-- Value buttons will be inserted here -->
-                            </div>
-                            <div class="d-flex justify-content-between mt-4">
-                                <button class="btn btn-outline-danger" onclick="showCategorySection()">Back</button>
-                                <button class="btn btn-danger" onclick="showPersonalizationSection()">Next</button>
+                <div id="personalizationForm" style="display: none;">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-lg-9">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="mb-0">Personalize Your Gift Card</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-section">
+                                                <h5>Recipient Information</h5>
+                                                <div class="mb-3">
+                                                    <label for="recipientName" class="form-label">Recipient's Name</label>
+                                                    <input type="text" class="form-control" id="recipientName" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Contact Method</label>
+                                                    <div class="contact-toggle mb-2">
+                                                        <div class="btn-group w-100" role="group">
+                                                            <input type="radio" class="btn-check" name="recipientContactType" id="recipientEmail" value="email" checked>
+                                                            <label class="btn btn-outline-primary" for="recipientEmail">
+                                                                <i class="fas fa-envelope me-2"></i>Email
+                                                            </label>
+                                                            
+                                                            <input type="radio" class="btn-check" name="recipientContactType" id="recipientPhone" value="phone">
+                                                            <label class="btn btn-outline-primary" for="recipientPhone">
+                                                                <i class="fas fa-phone me-2"></i>Phone
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div id="recipientEmailField" class="contact-field">
+                                                        <input type="email" class="form-control" id="recipientEmailInput" 
+                                                            placeholder="recipient@example.com" required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a valid email address
+                                                        </div>
+                                                    </div>
+                                                    <div id="recipientPhoneField" class="contact-field d-none">
+                                                        <input type="tel" class="form-control" id="recipientPhoneInput" 
+                                                            placeholder="(123) 456-7890" pattern="[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}" required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a valid phone number
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-section">
+                                                <h5>Your Information</h5>
+                                                <div class="mb-3">
+                                                    <label for="senderName" class="form-label">Your Name</label>
+                                                    <input type="text" class="form-control" id="senderName" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Contact Method</label>
+                                                    <div class="contact-toggle mb-2">
+                                                        <div class="btn-group w-100" role="group">
+                                                            <input type="radio" class="btn-check" name="senderContactType" id="senderEmail" value="email" checked>
+                                                            <label class="btn btn-outline-primary" for="senderEmail">
+                                                                <i class="fas fa-envelope me-2"></i>Email
+                                                            </label>
+                                                            
+                                                            <input type="radio" class="btn-check" name="senderContactType" id="senderPhone" value="phone">
+                                                            <label class="btn btn-outline-primary" for="senderPhone">
+                                                                <i class="fas fa-phone me-2"></i>Phone
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div id="senderEmailField" class="contact-field">
+                                                        <input type="email" class="form-control" id="senderEmailInput" 
+                                                            placeholder="your@example.com" required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a valid email address
+                                                        </div>
+                                                    </div>
+                                                    <div id="senderPhoneField" class="contact-field d-none">
+                                                        <input type="tel" class="form-control" id="senderPhoneInput" 
+                                                            placeholder="(123) 456-7890" pattern="[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}" required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a valid phone number
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-section mb-4">
+                                                <h5>Gift Message</h5>
+                                                <div class="mb-3">
+                                                    <label for="giftMessage" class="form-label">Personal Message</label>
+                                                    <textarea class="form-control" id="giftMessage" rows="3" placeholder="Enter your personal message here..."></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-section">
+                                                <h5>Select Card Design</h5>
+                                                <div class="design-grid">
+                                                    <label class="design-label">
+                                                        <input type="radio" name="cardDesign" value="Classic Design" class="d-none" checked>
+                                                        <div class="design-placeholder">
+                                                            <div class="design-preview">
+                                                                <div class="design-icon">
+                                                                    <i class="fas fa-gift"></i>
+                                                                </div>
+                                                                <h6 class="design-name mb-1">Classic</h6>
+                                                                <small class="design-style">Timeless Elegance</small>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                    
+                                                    <label class="design-label">
+                                                        <input type="radio" name="cardDesign" value="Modern Design" class="d-none">
+                                                        <div class="design-placeholder">
+                                                            <div class="design-preview">
+                                                                <div class="design-icon">
+                                                                    <i class="fas fa-star"></i>
+                                                                </div>
+                                                                <h6 class="design-name mb-1">Modern</h6>
+                                                                <small class="design-style">Contemporary Style</small>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                    
+                                                    <label class="design-label">
+                                                        <input type="radio" name="cardDesign" value="Elegant Design" class="d-none">
+                                                        <div class="design-placeholder">
+                                                            <div class="design-preview">
+                                                                <div class="design-icon">
+                                                                    <i class="fas fa-heart"></i>
+                                                                </div>
+                                                                <h6 class="design-name mb-1">Elegant</h6>
+                                                                <small class="design-style">Sophisticated Touch</small>
+                                                            </div>
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <button id="backToValue" class="btn btn-secondary">Back</button>
+                                        <button id="previewGiftCard" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#previewModal">Preview Gift Card</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Personalization Form -->
-                    <div id="personalizationForm" style="display: none;">
-                        <div class="container-fluid">
-                            <div class="row justify-content-center">
-                                <div class="col-12 col-lg-9">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <h4 class="mb-0">Personalize Your Gift Card</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-section">
-                                                        <h5>Recipient Information</h5>
-                                                        <div class="mb-3">
-                                                            <label for="recipientName" class="form-label">Recipient's Name</label>
-                                                            <input type="text" class="form-control" id="recipientName" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Contact Method</label>
-                                                            <div class="contact-toggle mb-2">
-                                                                <div class="btn-group w-100" role="group">
-                                                                    <input type="radio" class="btn-check" name="recipientContactType" id="recipientEmail" value="email" checked>
-                                                                    <label class="btn btn-outline-primary" for="recipientEmail">
-                                                                        <i class="fas fa-envelope me-2"></i>Email
-                                                                    </label>
-                                                                    
-                                                                    <input type="radio" class="btn-check" name="recipientContactType" id="recipientPhone" value="phone">
-                                                                    <label class="btn btn-outline-primary" for="recipientPhone">
-                                                                        <i class="fas fa-phone me-2"></i>Phone
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                            <div id="recipientEmailField" class="contact-field">
-                                                                <input type="email" class="form-control" id="recipientEmailInput" 
-                                                                    placeholder="recipient@example.com" required>
-                                                                <div class="invalid-feedback">
-                                                                    Please enter a valid email address
-                                                                </div>
-                                                            </div>
-                                                            <div id="recipientPhoneField" class="contact-field d-none">
-                                                                <input type="tel" class="form-control" id="recipientPhoneInput" 
-                                                                    placeholder="(123) 456-7890" pattern="[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}" required>
-                                                                <div class="invalid-feedback">
-                                                                    Please enter a valid phone number
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="form-section">
-                                                        <h5>Your Information</h5>
-                                                        <div class="mb-3">
-                                                            <label for="senderName" class="form-label">Your Name</label>
-                                                            <input type="text" class="form-control" id="senderName" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Contact Method</label>
-                                                            <div class="contact-toggle mb-2">
-                                                                <div class="btn-group w-100" role="group">
-                                                                    <input type="radio" class="btn-check" name="senderContactType" id="senderEmail" value="email" checked>
-                                                                    <label class="btn btn-outline-primary" for="senderEmail">
-                                                                        <i class="fas fa-envelope me-2"></i>Email
-                                                                    </label>
-                                                                    
-                                                                    <input type="radio" class="btn-check" name="senderContactType" id="senderPhone" value="phone">
-                                                                    <label class="btn btn-outline-primary" for="senderPhone">
-                                                                        <i class="fas fa-phone me-2"></i>Phone
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                            <div id="senderEmailField" class="contact-field">
-                                                                <input type="email" class="form-control" id="senderEmailInput" 
-                                                                    placeholder="your@example.com" required>
-                                                                <div class="invalid-feedback">
-                                                                    Please enter a valid email address
-                                                                </div>
-                                                            </div>
-                                                            <div id="senderPhoneField" class="contact-field d-none">
-                                                                <input type="tel" class="form-control" id="senderPhoneInput" 
-                                                                    placeholder="(123) 456-7890" pattern="[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}" required>
-                                                                <div class="invalid-feedback">
-                                                                    Please enter a valid phone number
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="form-section">
-                                                        <h5>Personal Message</h5>
-                                                        <div class="mb-3">
-                                                            <textarea class="form-control" id="personalMessage" rows="3" 
-                                                                maxlength="200" placeholder="Write your personal message here..." required></textarea>
-                                                            <div class="form-text text-end">
-                                                                <span id="messageCharCount">0</span>/200 characters
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="form-section">
-                                                        <h5>Select Card Design</h5>
-                                                        <div class="design-grid">
-                                                            <label class="design-label">
-                                                                <input type="radio" name="cardDesign" value="Classic Design" class="d-none" checked>
-                                                                <div class="design-placeholder">
-                                                                    <div class="design-preview">
-                                                                        <div class="design-icon">
-                                                                            <i class="fas fa-gift"></i>
-                                                                        </div>
-                                                                        <h6 class="design-name mb-1">Classic</h6>
-                                                                        <small class="design-style">Timeless Elegance</small>
-                                                                    </div>
-                                                                </div>
-                                                            </label>
-                                                            
-                                                            <label class="design-label">
-                                                                <input type="radio" name="cardDesign" value="Modern Design" class="d-none">
-                                                                <div class="design-placeholder">
-                                                                    <div class="design-preview">
-                                                                        <div class="design-icon">
-                                                                            <i class="fas fa-star"></i>
-                                                                        </div>
-                                                                        <h6 class="design-name mb-1">Modern</h6>
-                                                                        <small class="design-style">Contemporary Style</small>
-                                                                    </div>
-                                                                </div>
-                                                            </label>
-                                                            
-                                                            <label class="design-label">
-                                                                <input type="radio" name="cardDesign" value="Elegant Design" class="d-none">
-                                                                <div class="design-placeholder">
-                                                                    <div class="design-preview">
-                                                                        <div class="design-icon">
-                                                                            <i class="fas fa-heart"></i>
-                                                                        </div>
-                                                                        <h6 class="design-name mb-1">Elegant</h6>
-                                                                        <small class="design-style">Sophisticated Touch</small>
-                                                                    </div>
-                                                                </div>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                <!-- Preview Modal -->
+                <div class="modal fade" id="previewModal" data-bs-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary text-white">
+                                <h5 class="modal-title" id="previewModalLabel">Gift Card Preview</h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="gift-card-preview">
+                                    <div class="card-design">
+                                        <div class="company-details mb-3">
+                                            <div class="company-logo text-center mb-2">
+                                                <img id="previewCardLogo" src="" alt="Company Logo" class="img-fluid" style="max-height: 60px;">
                                             </div>
-                                            <div class="d-flex justify-content-between">
-                                                <button class="btn btn-outline-danger" onclick="showValueSection()">Back</button>
-                                                <button type="button" class="btn btn-danger" id="previewGiftCard" data-bs-toggle="modal" data-bs-target="#previewModal">Preview Gift Card</button>
+                                            <h3 id="previewCompanyName" class="text-center mb-2"></h3>
+                                        </div>
+                                        <div class="gift-card-content">
+                                            <div class="amount-display text-center mb-4">
+                                                <h2 class="gift-amount"></h2>
+                                            </div>
+                                            <div class="message-section mb-4">
+                                                <p class="gift-message text-center"></p>
+                                            </div>
+                                            <div class="recipient-info">
+                                                <p class="text-center mb-1">To: <span class="recipient-name"></span></p>
+                                                <p class="text-center mb-1">From: <span class="sender-name"></span></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <!-- Preview Modal -->
-                        <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title" id="previewModalLabel">Gift Card Preview</h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div id="modalPreviewContent">
-                                            <div class="gift-card-preview">
-                                                <div class="gift-card-inner">
-                                                    <!-- Front of card -->
-                                                    <div class="gift-card-front">
-                                                        <div class="gift-card-header">
-                                                            <h3>Digital Gift Card</h3>
-                                                            <div class="gift-card-value">$<span id="modalPreviewValue">50</span></div>
-                                                        </div>
-                                                        <div class="gift-card-body">
-                                                            <div class="gift-card-message" id="modalPreviewMessage">
-                                                                Your personal message will appear here...
-                                                            </div>
-                                                            <div class="gift-card-footer">
-                                                                <div class="sender">From: <span id="modalPreviewSender">Your Name</span></div>
-                                                                <div class="recipient">To: <span id="modalPreviewRecipient">Recipient's Name</span></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Back of card -->
-                                                    <div class="gift-card-back">
-                                                        <div class="gift-card-details">
-                                                            <h4>Gift Card Details</h4>
-                                                            <div class="details-row">
-                                                                <span class="label">Card Number:</span>
-                                                                <span class="value" id="modalPreviewCardNumber">XXXX-XXXX-XXXX-XXXX</span>
-                                                            </div>
-                                                            <div class="details-row">
-                                                                <span class="label">Valid Until:</span>
-                                                                <span class="value" id="modalPreviewExpiry">12 months from activation</span>
-                                                            </div>
-                                                            <div class="contact-info">
-                                                                <div id="modalPreviewContact">Contact information will appear here...</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="gift-card-terms">
-                                                            <small>Terms & Conditions Apply</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Back</button>
-                                        <button type="button" class="btn btn-danger" id="confirmGiftCardModal">Confirm & Purchase</button>
-                                    </div>
-                                </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="confirmGiftCard">Confirm & Send</button>
                             </div>
                         </div>
                     </div>
@@ -437,5 +371,6 @@
 {% endblock %}
 
 {% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="{{ url_for('static', filename='js/giftcard.js') }}"></script>
 {% endblock %}
