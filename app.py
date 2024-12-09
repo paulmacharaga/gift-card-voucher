@@ -157,4 +157,6 @@ def create_gift_card():
         }), 500
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5007)
+    import os
+    port = int(os.environ.get('PORT', 5007))
+    app.run(host='0.0.0.0', port=port, debug=True)
