@@ -1,0 +1,1200 @@
+/* General Styles */
+body {
+    padding-top: 76px;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Main Layout */
+.main-content-area {
+    min-height: calc(100vh - 80px);
+    padding: 40px 0;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #dc3545, #bb2d3b);
+    padding: 80px 0;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../images/pattern.png');
+    opacity: 0.1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero {
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+}
+
+.hero-content {
+    min-height: 400px;
+}
+
+.hero-categories .btn {
+    padding: 1rem;
+    transition: all 0.3s ease;
+    border-width: 2px;
+    font-weight: 500;
+}
+
+.hero-categories .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.hero-categories .btn i {
+    font-size: 1.2rem;
+}
+
+/* Category Cards */
+.category-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.card-category {
+    border: none;
+    background: none;
+    transition: transform 0.2s;
+    width: 100%;
+    padding: 10px;
+}
+
+.card-category:hover {
+    transform: scale(1.05);
+}
+
+.card-category.active {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-radius: 8px;
+}
+
+.card-category:hover .logo-placeholder {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.category-card .card-header {
+    background: linear-gradient(135deg, #dc3545, #bb2d3b);
+    color: white;
+    border: none;
+}
+
+/* Hero Categories */
+.hero-categories .btn-outline-primary {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.hero-categories .btn-outline-primary:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+/* How It Works Section */
+.step-card {
+    border: none;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    background: #dc3545;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+}
+
+/* Contact Section */
+.contact-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Contact Method Styles */
+.contact-toggle .btn-group {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.contact-toggle .btn {
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    border: 1px solid #dee2e6;
+    background-color: white;
+    color: #6c757d;
+}
+
+.contact-toggle .btn:hover {
+    background-color: #f8f9fa;
+}
+
+.contact-toggle .btn-check:checked + .btn {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+}
+
+.contact-toggle .btn-check:checked + .btn i {
+    transform: scale(1.1);
+}
+
+.contact-toggle .btn i {
+    transition: transform 0.3s ease;
+}
+
+.contact-field {
+    transition: all 0.3s ease;
+}
+
+.contact-field.d-none {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.contact-field:not(.d-none) {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Phone Input Styles */
+input[type="tel"] {
+    letter-spacing: 0.5px;
+}
+
+input[type="tel"]::placeholder {
+    letter-spacing: normal;
+}
+
+/* Invalid Input Styles */
+.form-control:invalid {
+    border-color: #dc3545;
+    box-shadow: none;
+}
+
+.form-control:invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    background-image: none;
+}
+
+/* Placeholders */
+.logo-placeholder {
+    transition: background-color 0.2s;
+    border: 2px solid transparent;
+}
+
+.card-category:hover .logo-placeholder {
+    background-color: #e9ecef !important;
+    border-color: #dc3545;
+}
+
+.design-label {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.design-placeholder {
+    transition: all 0.2s;
+    border: 2px solid transparent;
+}
+
+input[type="radio"]:checked + .design-placeholder {
+    border-color: #dc3545;
+    background-color: #e9ecef !important;
+}
+
+.design-label:hover .design-placeholder {
+    background-color: #e9ecef !important;
+    border-color: #dc3545;
+}
+
+/* Design Selection Styles */
+.design-label {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 15px;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.design-placeholder {
+    transition: all 0.3s ease;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    height: 160px;
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+/* Unselected design styles */
+.design-label:not(:has(input:checked)) .design-placeholder {
+    filter: grayscale(60%);
+}
+
+/* Selected design styles */
+input[type="radio"]:checked + .design-placeholder {
+    border-color: #dc3545;
+    box-shadow: 0 8px 16px rgba(220, 53, 69, 0.2);
+    transform: translateY(-5px);
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+.design-label:has(input:checked) {
+    opacity: 1;
+}
+
+/* Selection indicator */
+.design-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    background-color: white;
+    z-index: 2;
+}
+
+input[type="radio"]:checked + .design-placeholder::before {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    box-shadow: 0 0 0 2px white inset;
+}
+
+/* Selection animation */
+@keyframes selectPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+input[type="radio"]:checked + .design-placeholder {
+    animation: selectPop 0.3s ease-out;
+}
+
+/* Hover effects */
+.design-label:hover {
+    opacity: 1;
+}
+
+.design-label:hover .design-placeholder {
+    border-color: #dc3545;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.15);
+}
+
+/* Design grid layout */
+.design-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+/* Gift Card Styles */
+.gift-card {
+    perspective: 1000px;
+    margin: 20px 0;
+}
+
+.gift-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.gift-card.flipped .gift-card-inner {
+    transform: rotateY(180deg);
+}
+
+.gift-card-front,
+.gift-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.gift-card-front {
+    background: linear-gradient(135deg, #dc3545, #bb2d3b);
+    color: white;
+    z-index: 2;
+    transform-style: preserve-3d;
+    transform: translateZ(1px);
+}
+
+.gift-card-back {
+    background: white;
+    color: #2d3748;
+    transform: rotateY(180deg);
+}
+
+.gift-card-content {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.gift-card-logo {
+    font-size: 24px;
+    margin-bottom: 20px;
+    transform: translateZ(20px);
+}
+
+.gift-card-value {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transform: translateZ(40px);
+}
+
+.gift-card-message {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    font-style: italic;
+    transform: translateZ(30px);
+}
+
+.gift-card-details {
+    text-align: left;
+    padding: 20px;
+}
+
+.gift-card-recipient,
+.gift-card-sender {
+    margin: 10px 0;
+}
+
+/* Hover Effects */
+.gift-card:hover .gift-card-inner {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(220, 53, 69, 0.2);
+}
+
+.gift-card.flipped:hover .gift-card-inner {
+    transform: rotateY(180deg) translateY(-10px);
+}
+
+/* Forms and Cards */
+.card {
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: box-shadow 0.2s;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.card-header {
+    background-color: #dc3545;
+    color: white;
+    border-bottom: none;
+}
+
+.form-control:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    transition: all 0.2s;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+    background-color: #bb2d3b;
+    border-color: #bb2d3b;
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #718096;
+    border-color: #718096;
+    transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+    background-color: #4a5568;
+    border-color: #4a5568;
+    transform: translateY(-1px);
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .hero {
+        padding: 40px 0;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .category-card {
+        margin-bottom: 20px;
+    }
+    
+    .step-card {
+        margin-bottom: 30px;
+    }
+}
+
+/* Additional Styles */
+#previewContent {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+#shareSection {
+    border-top: 1px solid #dee2e6;
+    padding-top: 20px;
+}
+
+/* Gift Card Preview Styles */
+.gift-card-preview {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.gift-card-inner {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.gift-card-preview:hover .gift-card-inner {
+    transform: rotateY(180deg);
+}
+
+.gift-card-front, .gift-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.gift-card-front {
+    background: linear-gradient(135deg, #dc3545, #bb2d3b);
+    color: white;
+}
+
+.gift-card-back {
+    background: white;
+    transform: rotateY(180deg);
+    color: #333;
+}
+
+.gift-card-header {
+    margin-bottom: 20px;
+}
+
+.gift-card-value {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.gift-card-message {
+    font-size: 1.1rem;
+    margin: 20px 0;
+    font-style: italic;
+}
+
+.gift-card-footer {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+}
+
+.gift-card-details {
+    padding: 20px;
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 0.9rem;
+}
+
+.gift-card-terms {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.contact-info {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+/* Share Section Styles */
+#shareSection {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+#copyShareLink {
+    white-space: nowrap;
+}
+
+/* Preview Card Styles */
+.preview-card {
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+}
+
+.preview-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 20px 40px rgba(220, 53, 69, 0.3);
+}
+
+.preview-design {
+    transform-style: preserve-3d;
+}
+
+.preview-icon {
+    transform: translateZ(30px);
+}
+
+.preview-value {
+    transform: translateZ(25px);
+}
+
+.preview-message {
+    transform: translateZ(20px);
+}
+
+/* Animation for Selection */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.selected-design {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Gift Card Form Styles */
+#giftCardForms {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+#giftCardForms.active {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(220, 53, 69, 0.15);
+}
+
+#giftCardForms::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+#giftCardForms.active::before {
+    opacity: 1;
+}
+
+/* Form Section Hover Effects */
+#giftCardForms .form-section {
+    padding: 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    background: white;
+}
+
+#giftCardForms .form-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(220, 53, 69, 0.1);
+}
+
+/* Input Field Focus Effects */
+#giftCardForms .form-control {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    background-color: #f8f9fa;
+}
+
+#giftCardForms .form-control:focus {
+    transform: translateY(-2px);
+    border-color: #dc3545;
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.1);
+    background-color: white;
+}
+
+/* Section Headers */
+#giftCardForms h5 {
+    color: #2d3748;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+#giftCardForms h5::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(to right, #dc3545, transparent);
+    border-radius: 3px;
+}
+
+/* Form Groups Animation */
+#giftCardForms .form-group {
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+#giftCardForms .form-group:hover {
+    opacity: 1;
+}
+
+/* Active Section Indicator */
+#giftCardForms .form-section.active-section {
+    border: 2px solid rgba(220, 53, 69, 0.1);
+    background: linear-gradient(to bottom right, white, rgba(220, 53, 69, 0.05));
+}
+
+/* Floating Labels */
+#giftCardForms .form-label {
+    transition: all 0.3s ease;
+    color: #6c757d;
+}
+
+#giftCardForms .form-control:focus + .form-label,
+#giftCardForms .form-control:not(:placeholder-shown) + .form-label {
+    color: #dc3545;
+    transform: translateY(-25px) scale(0.85);
+}
+
+/* Submit Button Hover */
+#giftCardForms .btn-primary {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#giftCardForms .btn-primary:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(220, 53, 69, 0.2);
+}
+
+/* Animation keyframes for form sections */
+@keyframes formSectionEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-section {
+    animation: formSectionEnter 0.5s ease forwards;
+}
+
+/* Modal Preview Styles */
+#previewModal .modal-dialog {
+    max-width: 800px;
+}
+
+#previewModal .modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+#previewModal .modal-header {
+    border-bottom: none;
+    padding: 20px 30px;
+}
+
+#previewModal .modal-body {
+    padding: 0 30px 30px;
+}
+
+#previewModal .modal-footer {
+    border-top: none;
+    padding: 20px 30px;
+}
+
+#previewModal .gift-card-preview {
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+#previewModal .modal-title {
+    color: #333;
+    font-weight: 600;
+}
+
+#previewModal .btn-close {
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+#previewModal .btn-close:hover {
+    opacity: 1;
+}
+
+/* Enhanced Modal Animation */
+.modal.fade .modal-dialog {
+    transform: scale(0.8);
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+}
+
+/* Gift Card Modal Styles */
+#giftCardModal .modal-dialog {
+    max-width: 90%;
+    margin: 1.75rem auto;
+}
+
+#giftCardModal .modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+#giftCardModal .modal-header {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 15px 15px 0 0;
+}
+
+#giftCardModal .modal-body {
+    padding: 0;
+}
+
+#giftCardModal .modal-title {
+    color: #333;
+    font-weight: 600;
+}
+
+#giftCardModal .btn-close {
+    opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+#giftCardModal .btn-close:hover {
+    opacity: 1;
+}
+
+/* Category Cards in Modal */
+#giftCardModal .category-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+#giftCardModal .category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#giftCardModal .logo-placeholder {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+#giftCardModal .card-category:hover .logo-placeholder {
+    background-color: #e9ecef;
+}
+
+/* Form Sections in Modal */
+#giftCardModal .form-section {
+    padding: 1.5rem;
+    background-color: #fff;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+#giftCardModal .form-section h5 {
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+/* Enhanced Modal Animation */
+.modal.fade .modal-dialog {
+    transform: scale(0.9);
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Scrollable Modal Content */
+#giftCardModal .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #giftCardModal .modal-dialog {
+        max-width: 95%;
+        margin: 1rem auto;
+    }
+    
+    #giftCardModal .form-section {
+        padding: 1rem;
+    }
+}
+
+/* Modal Styles */
+.modal-dialog-scrollable .modal-content {
+    max-height: 90vh;
+}
+
+.modal-body {
+    padding: 0;
+}
+
+/* Category Section */
+.category-card {
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+.card-category {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: none;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+
+.card-category.active {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-radius: 8px;
+}
+
+.logo-placeholder {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+}
+
+.card-category:hover .logo-placeholder {
+    background-color: #e9ecef;
+}
+
+/* Value Section */
+.value-selection {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Personalization Form */
+.form-section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.contact-toggle .btn-group {
+    width: 100%;
+}
+
+.contact-toggle .btn {
+    flex: 1;
+}
+
+/* Design Selection */
+.design-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.design-label {
+    cursor: pointer;
+}
+
+.design-placeholder {
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+input[type="radio"]:checked + .design-placeholder {
+    border-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.design-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.design-icon {
+    font-size: 2rem;
+    color: #dc3545;
+    margin-bottom: 0.5rem;
+}
+
+/* Preview Modal */
+.gift-card-preview {
+    perspective: 1000px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.gift-card-inner {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.gift-card-preview:hover .gift-card-inner {
+    transform: rotateY(180deg);
+}
+
+.gift-card-front, .gift-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.gift-card-front {
+    background: linear-gradient(135deg, #dc3545, #bb2d3b);
+    color: white;
+}
+
+.gift-card-back {
+    background: linear-gradient(135deg, #bb2d3b, #dc3545);
+    color: white;
+    transform: rotateY(180deg);
+}
+
+.gift-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.gift-card-value {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.gift-card-message {
+    font-size: 1.1rem;
+    margin: 2rem 0;
+    min-height: 80px;
+}
+
+.gift-card-footer {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+}
+
+.gift-card-details {
+    text-align: left;
+}
+
+.details-row {
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.gift-card-terms {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 40px);
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .modal-dialog-scrollable {
+        max-height: 100vh;
+    }
+    
+    .design-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+    
+    .gift-card-inner {
+        height: 250px;
+    }
+    
+    .gift-card-value {
+        font-size: 1.5rem;
+    }
+    
+    .gift-card-message {
+        font-size: 1rem;
+        min-height: 60px;
+    }
+}
