@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Preview Header -->
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-900">{{ card.name }} Gift Card</h2>
+            <p class="mt-2 text-sm text-gray-600">This is how your gift card will look to the recipient</p>
+        </div>
+
+        <!-- Gift Card Preview -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+            <!-- Company Logo Section -->
+            {% if card.logo %}
+            <div class="relative h-48 bg-gradient-to-r from-indigo-600 to-purple-600">
+                <div class="absolute inset-0 flex items-center justify-center p-6">
+                    <img src="{{ url_for('serve_image', filename=card.logo) }}" 
+                         alt="{{ card.name }}" 
+                         class="max-h-32 w-auto object-contain filter drop-shadow-lg">
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
+            {% endif %}
+
+            <!-- Card Details -->
+            <div class="px-8 py-6">
+                <!-- Card Info -->
+                <div class="text-center mb-8">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+                        Digital Gift Card
+                    </span>
+                    <h3 class="mt-4 text-3xl font-bold text-gray-900">{{ card.name }}</h3>
+                    {% if card.category_name %}
+                    <p class="mt-2 text-sm text-gray-500">{{ card.category_name }}</p>
+                    {% endif %}
+                    <div class="mt-6">
+                        <span class="inline-flex items-center px-6 py-3 rounded-full bg-green-100 text-green-800 text-2xl font-bold">
+                            ${{ "%.2f"|format(card.value|float) }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="relative my-8">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-200"></div>
+                    </div>
+                    <div class="relative flex justify-center">
+                        <span class="px-4 bg-white text-sm text-gray-500">Gift Message</span>
+                    </div>
+                </div>
+
+                <!-- Gift Details -->
+                <div class="space-y-6">
+                    <!-- To/From Section -->
+                    <div class="grid grid-cols-2 gap-8">
+                        <div class="text-center">
+                            <p class="text-sm text-gray-500">To</p>
+                            <p class="mt-1 text-lg font-medium text-gray-900">{{ card.recipient_name }}</p>
+                            <p class="text-sm text-gray-500">{{ card.recipient_email }}</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-sm text-gray-500">From</p>
+                            <p class="mt-1 text-lg font-medium text-gray-900">{{ card.sender_name }}</p>
+                            <p class="text-sm text-gray-500">{{ card.sender_email }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Message -->
+                    <div class="bg-gray-50 rounded-xl p-6">
+                        <p class="text-gray-700 whitespace-pre-wrap">{{ card.message }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="px-8 py-4 bg-gray-50 border-t border-gray-100">
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-clock"></i>
+                        <span>Valid for 1 year</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure Gift Card</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Share Section -->
+        <div class="mt-8 text-center">
+            <p class="text-sm text-gray-600 mb-4">Share this preview with others</p>
+            <div class="flex justify-center space-x-4">
+                <button class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Share via Email
+                </button>
+                <button class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <i class="fas fa-link mr-2"></i>
+                    Copy Link
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

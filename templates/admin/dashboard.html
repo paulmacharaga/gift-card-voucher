@@ -1,0 +1,483 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <!-- Admin Dashboard Header -->
+    <div class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Stats Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                            <i class="fas fa-gift text-white text-xl"></i>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Total Gift Cards</dt>
+                                <dd class="text-lg font-semibold text-gray-900">{{ total_cards }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-purple-500 rounded-md p-3">
+                            <i class="fas fa-layer-group text-white text-xl"></i>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Active Categories</dt>
+                                <dd class="text-lg font-semibold text-gray-900">{{ total_categories }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 bg-pink-500 rounded-md p-3">
+                            <i class="fas fa-dollar-sign text-white text-xl"></i>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Total Generated Value</dt>
+                                <dd class="text-lg font-semibold text-gray-900">${{ "%.2f"|format(total_value) }}</dd>
+                                <dt class="text-sm font-medium text-gray-500 mt-2">Total Transactions</dt>
+                                <dd class="text-sm text-gray-600">{{ total_transactions }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="bg-white shadow rounded-lg mb-8">
+            <div class="px-4 py-5 sm:px-6 flex justify-between items-center border-b border-gray-200">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Gift Card Categories</h3>
+                <button onclick="document.getElementById('addCategoryModal').classList.remove('hidden')" class="btn-primary">
+                    <i class="fas fa-plus mr-2"></i>Add Category
+                </button>
+            </div>
+            <div class="px-4 py-5 sm:p-6">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cards</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for category in categories %}
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ category.name }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ category.cards|length }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <button class="btn-secondary edit-category mr-2" data-id="{{ loop.index0 }}">
+                                        <i class="fas fa-edit mr-2"></i>Edit
+                                    </button>
+                                    <button class="text-sm px-4 py-2 border border-transparent font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 delete-category" data-id="{{ loop.index0 }}">
+                                        <i class="fas fa-trash-alt mr-2"></i>Delete
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gift Cards Section -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-4 py-5 sm:px-6 flex justify-between items-center border-b border-gray-200">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Gift Cards</h3>
+                <button onclick="document.getElementById('addCardModal').classList.remove('hidden')" class="btn-primary">
+                    <i class="fas fa-plus mr-2"></i>Add Gift Card
+                </button>
+            </div>
+            <div class="px-4 py-5 sm:p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {% for category in categories %}
+                        {% for card in category.cards %}
+                        <div class="bg-gray-50 rounded-lg p-4 card-container">
+                            <div class="flex flex-col h-full">
+                                <div class="flex-shrink-0 h-48 w-full bg-white rounded-lg p-4 flex items-center justify-center mb-4">
+                                    {% if card.logo %}
+                                    <img src="/static/images/{{ card.logo }}" alt="{{ card.name }}" class="max-h-full max-w-full object-contain">
+                                    {% else %}
+                                    <div class="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center">
+                                        <span class="text-3xl font-bold text-indigo-600">{{ card.name[0] if card.name else 'G' }}</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="text-lg font-medium text-gray-900 mb-2 card-name">{{ card.name or 'Untitled Card' }}</h4>
+                                    <p class="text-sm text-gray-500 mb-2 card-description">{{ card.description or 'No description available' }}</p>
+                                    <p class="text-sm text-gray-500 mb-2 card-price" data-price="{{ card.price or 0 }}">Price: ${{ "%.2f"|format(card.price or 0) }}</p>
+                                    <p class="text-sm text-gray-500 mb-2 card-validity" data-validity="{{ card.validity or 0 }}">Validity: {{ card.validity or 0 }} days</p>
+                                    <p class="text-sm text-gray-500 mb-4 card-terms">{{ card.terms or 'No terms specified' }}</p>
+                                    <div class="flex justify-end space-x-2">
+                                        <button onclick="openEditModal('{{ card.id }}', '{{ card.name }}', '{{ card.description }}', '{{ card.price }}', '{{ card.validity }}', '{{ card.terms }}', '{{ category.id }}')"
+                                            class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                            <i class="fas fa-edit mr-1"></i> Edit
+                                        </button>
+                                        <button onclick="deleteCard('{{ card.id }}')"
+                                            class="inline-flex items-center px-3 py-1 border border-transparent text-sm font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                            <i class="fas fa-trash-alt mr-1"></i> Delete
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Category Modal -->
+<div id="addCategoryModal" class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity">
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-medium leading-6 text-gray-900">Add Category</h3>
+                        <button onclick="document.getElementById('addCategoryModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-500">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="categoryName" class="block text-sm font-medium text-gray-700">Category Name</label>
+                            <input type="text" id="categoryName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <button type="button" id="saveCategoryBtn" class="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 sm:ml-3 sm:w-auto">Save</button>
+                    <button type="button" onclick="document.getElementById('addCategoryModal').classList.add('hidden')" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Gift Card Modal -->
+<div id="addCardModal" class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity">
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
+                <!-- Header -->
+                <div class="bg-indigo-600 px-4 py-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-white">Add New Gift Card</h3>
+                        <button onclick="document.getElementById('addCardModal').classList.add('hidden')" class="text-white hover:text-gray-200">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white px-6 py-4">
+                    <form id="addCardForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Left Column -->
+                            <div class="space-y-6">
+                                <!-- Name Field -->
+                                <div>
+                                    <label for="cardName" class="block text-sm font-medium text-gray-700">
+                                        Card Name <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" id="cardName" required 
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Enter gift card name">
+                                </div>
+
+                                <!-- Category Field -->
+                                <div>
+                                    <label for="cardCategory" class="block text-sm font-medium text-gray-700">
+                                        Category <span class="text-red-500">*</span>
+                                    </label>
+                                    <select id="cardCategory" name="category" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" required>
+                                        <option value="">Select a category</option>
+                                        {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- Price Field -->
+                                <div>
+                                    <label for="cardPrice" class="block text-sm font-medium text-gray-700">
+                                        Price <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <span class="text-gray-500 sm:text-sm">$</span>
+                                        </div>
+                                        <input type="number" id="cardPrice" required step="0.01" min="0"
+                                            class="pl-7 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            placeholder="0.00">
+                                    </div>
+                                </div>
+
+                                <!-- Validity Field -->
+                                <div>
+                                    <label for="cardValidity" class="block text-sm font-medium text-gray-700">
+                                        Validity (days) <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="number" id="cardValidity" required min="1"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Enter validity period in days">
+                                </div>
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="space-y-6">
+                                <!-- Description Field -->
+                                <div>
+                                    <label for="cardDescription" class="block text-sm font-medium text-gray-700">
+                                        Description <span class="text-red-500">*</span>
+                                    </label>
+                                    <textarea id="cardDescription" rows="3" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Enter gift card description"></textarea>
+                                </div>
+
+                                <!-- Terms Field -->
+                                <div>
+                                    <label for="cardTerms" class="block text-sm font-medium text-gray-700">
+                                        Terms & Conditions <span class="text-red-500">*</span>
+                                    </label>
+                                    <textarea id="cardTerms" rows="3" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Enter terms and conditions"></textarea>
+                                </div>
+
+                                <!-- Logo Upload -->
+                                <div>
+                                    <label for="cardLogo" class="block text-sm font-medium text-gray-700">
+                                        Logo <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="mt-1 flex items-center">
+                                        <div class="w-full">
+                                            <label class="block">
+                                                <span class="sr-only">Choose logo file</span>
+                                                <input type="file" id="cardLogo" accept="image/*" required
+                                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"
+                                                    placeholder="Select logo file">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <p class="mt-1 text-sm text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <div class="bg-gray-50 px-6 py-4 flex justify-end space-x-3">
+                    <button type="button" onclick="document.getElementById('addCardModal').classList.add('hidden')"
+                        class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" onclick="submitAddCardForm()"
+                        class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700">
+                        Add Gift Card
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Gift Card Modal -->
+<div id="editCardModal" class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity">
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl">
+                <!-- Header -->
+                <div class="bg-indigo-600 px-4 py-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-white">Edit Gift Card</h3>
+                        <button onclick="document.getElementById('editCardModal').classList.add('hidden')" class="text-white hover:text-gray-200">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white px-6 py-4">
+                    <form id="editCardForm" class="space-y-6">
+                        <input type="hidden" id="editCardId">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Left Column -->
+                            <div class="space-y-6">
+                                <!-- Name Field -->
+                                <div>
+                                    <label for="editCardName" class="block text-sm font-medium text-gray-700">
+                                        Card Name <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="text" id="editCardName" required 
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Enter gift card name">
+                                </div>
+
+                                <!-- Category Field -->
+                                <div>
+                                    <label for="editCardCategory" class="block text-sm font-medium text-gray-700">
+                                        Category <span class="text-red-500">*</span>
+                                    </label>
+                                    <select id="editCardCategory" required 
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <option value="">Select a category</option>
+                                        {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <!-- Price Field -->
+                                <div>
+                                    <label for="editCardPrice" class="block text-sm font-medium text-gray-700">
+                                        Price <span class="text-red-500">*</span>
+                                    </label>
+                                    <div class="mt-1 relative rounded-md shadow-sm">
+                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <span class="text-gray-500 sm:text-sm">$</span>
+                                        </div>
+                                        <input type="number" id="editCardPrice" required step="0.01" min="0"
+                                            class="pl-7 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            placeholder="0.00">
+                                    </div>
+                                </div>
+
+                                <!-- Validity Field -->
+                                <div>
+                                    <label for="editCardValidity" class="block text-sm font-medium text-gray-700">
+                                        Validity (days) <span class="text-red-500">*</span>
+                                    </label>
+                                    <input type="number" id="editCardValidity" required min="1"
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Enter validity period in days">
+                                </div>
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="space-y-6">
+                                <!-- Description Field -->
+                                <div>
+                                    <label for="editCardDescription" class="block text-sm font-medium text-gray-700">
+                                        Description <span class="text-red-500">*</span>
+                                    </label>
+                                    <textarea id="editCardDescription" rows="3" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Enter gift card description"></textarea>
+                                </div>
+
+                                <!-- Terms Field -->
+                                <div>
+                                    <label for="editCardTerms" class="block text-sm font-medium text-gray-700">
+                                        Terms & Conditions <span class="text-red-500">*</span>
+                                    </label>
+                                    <textarea id="editCardTerms" rows="3" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        placeholder="Enter terms and conditions"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <div class="bg-gray-50 px-6 py-4 flex justify-end space-x-3">
+                    <button type="button" onclick="document.getElementById('editCardModal').classList.add('hidden')"
+                        class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Cancel
+                    </button>
+                    <button type="button" onclick="submitEditCardForm()"
+                        class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Update Gift Card
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Category Modal -->
+<div id="editCategoryModal" class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity">
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <!-- Header -->
+                <div class="bg-indigo-600 px-4 py-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-lg font-semibold text-white">Edit Category</h3>
+                        <button type="button" onclick="document.getElementById('editCategoryModal').classList.add('hidden')" class="text-white hover:text-gray-200">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <div class="bg-white px-6 py-4">
+                    <form id="editCategoryForm" class="space-y-6">
+                        <input type="hidden" id="editCategoryId">
+                        <div>
+                            <label for="editCategoryName" class="block text-sm font-medium text-gray-700">
+                                Category Name <span class="text-red-500">*</span>
+                            </label>
+                            <input type="text" id="editCategoryName" name="editCategoryName" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Footer -->
+                <div class="bg-gray-50 px-6 py-4 flex justify-end space-x-3">
+                    <button type="button" onclick="document.getElementById('editCategoryModal').classList.add('hidden')"
+                        class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Cancel
+                    </button>
+                    <button type="button" onclick="submitEditCategoryForm()"
+                        class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Toast -->
+<div id="successToast" class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 transition-opacity duration-300 opacity-0 pointer-events-none">
+    <div class="flex items-center">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="successMessage"></span>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}

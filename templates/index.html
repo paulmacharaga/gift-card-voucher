@@ -4,363 +4,24 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section id="hero" class="hero">
-    <div class="container">
-        <div class="row align-items-center hero-content">
-            <div class="col-lg-6">
-                <h1>Create Beautiful Digital Gift Cards</h1>
-                <p class="lead">Personalize and share digital gift cards instantly. Perfect for any occasion!</p>
-                <a href="#main-content" class="btn btn-primary btn-lg">Get Started</a>
+<div class="bg-gradient-to-r from-indigo-600 to-purple-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-6">
+                    Create Beautiful Digital Gift Cards
+                </h1>
+                <p class="text-xl text-indigo-100 mb-8">
+                    Personalize and share digital gift cards instantly. Perfect for any occasion!
+                </p>
+                <a href="#categories" class="btn-primary text-lg px-8 py-3">
+                    Get Started
+                </a>
             </div>
-            <div class="col-lg-6 text-center">
-                <svg class="img-fluid" width="400" height="300" viewBox="0 0 400 300">
-                    <rect width="100%" height="100%" fill="#f8f9fa"/>
-                    <text x="50%" y="50%" text-anchor="middle" fill="#6c757d">Gift Card Hero Image</text>
-                </svg>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Main Content Area -->
-<div id="main-content" class="main-content-area py-5">
-    <div class="container">
-        <!-- Categories Section -->
-        <section id="categories">
-            <div id="categorySection">
-                <h2 class="text-center mb-5">Choose Your Gift Card Category</h2>
-                <div class="row">
-                    {% for category in categories %}
-                    <div class="col-md-4 mb-4">
-                        <div class="card category-card h-100">
-                            <div class="card-header bg-primary text-white">
-                                <h5 class="card-title text-center mb-0">{{ category.name }}</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    {% for card in category.cards %}
-                                    <div class="col-4 text-center">
-                                        <button class="btn card-category p-2" 
-                                                data-card-id="{{ card.id }}"
-                                                data-card-name="{{ card.name }}"
-                                                data-card-logo="{{ card.logo }}">
-                                            <div class="logo-placeholder" style="width: 80px; height: 80px; margin: 0 auto; background-color: #f8f9fa; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
-                                                <span class="text-muted" style="font-size: 12px;">{{ card.name }}</span>
-                                            </div>
-                                            <p class="mt-2 mb-0">{{ card.name }}</p>
-                                        </button>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
-
-        <!-- How It Works Section -->
-        <section id="how-it-works" class="py-5 bg-light">
-            <div class="container">
-                <h2 class="text-center mb-5">How It Works</h2>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="step-card">
-                            <div class="step-icon">
-                                <i class="fas fa-gift"></i>
-                            </div>
-                            <h4>Choose Category</h4>
-                            <p>Select from our wide range of gift card categories</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="step-card">
-                            <div class="step-icon">
-                                <i class="fas fa-dollar-sign"></i>
-                            </div>
-                            <h4>Set Value</h4>
-                            <p>Choose the perfect amount for your gift</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="step-card">
-                            <div class="step-icon">
-                                <i class="fas fa-pen"></i>
-                            </div>
-                            <h4>Personalize</h4>
-                            <p>Add your personal message and design</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="step-card">
-                            <div class="step-icon">
-                                <i class="fas fa-share-alt"></i>
-                            </div>
-                            <h4>Share</h4>
-                            <p>Share instantly with your loved ones</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 offset-md-3">
-                        <div class="contact-form">
-                            <h2 class="text-center mb-4">Get in Touch</h2>
-                            <form>
-                                <div class="mb-3">
-                                    <input type="text" class="form-control" placeholder="Your Name">
-                                </div>
-                                <div class="mb-3">
-                                    <input type="email" class="form-control" placeholder="Your Email">
-                                </div>
-                                <div class="mb-3">
-                                    <textarea class="form-control" rows="4" placeholder="Your Message"></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">Send Message</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gift Card Creation Forms -->
-        <div id="giftCardForms" style="display: none;">
-            <div class="container-fluid">
-                <div id="valueSection" style="display: none;">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-lg-9">
-                            <div class="card">
-                                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                                    <h4 class="mb-0">Selected Gift Card</h4>
-                                    <button id="backToCategory" class="btn btn-outline-light">Change Selection</button>
-                                </div>
-                                <div class="card-body">
-                                    <div class="selected-card-details mb-4">
-                                        <div class="row align-items-center">
-                                            <div class="col-md-4 text-center">
-                                                <div class="selected-card-logo mb-3">
-                                                    <img id="selectedCardLogo" src="" alt="Card Logo" class="img-fluid" style="max-width: 150px; max-height: 150px;">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h3 id="selectedCardName" class="mb-3"></h3>
-                                                <p id="selectedCardDescription" class="text-muted"></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="value-selection">
-                                        <h5>Select Gift Card Value</h5>
-                                        <div class="mb-3">
-                                            <label for="cardValue" class="form-label">Amount ($10 - $500)</label>
-                                            <input type="number" class="form-control" id="cardValue" min="10" max="500" step="10" value="50">
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <button id="backToCategory" class="btn btn-secondary">Back</button>
-                                            <button id="proceedToPersonalization" class="btn btn-primary">Continue to Personalization</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="personalizationForm" style="display: none;">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-lg-9">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="mb-0">Personalize Your Gift Card</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-section">
-                                                <h5>Recipient Information</h5>
-                                                <div class="mb-3">
-                                                    <label for="recipientName" class="form-label">Recipient's Name</label>
-                                                    <input type="text" class="form-control" id="recipientName" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Contact Method</label>
-                                                    <div class="contact-toggle mb-2">
-                                                        <div class="btn-group w-100" role="group">
-                                                            <input type="radio" class="btn-check" name="recipientContactType" id="recipientEmail" value="email" checked>
-                                                            <label class="btn btn-outline-primary" for="recipientEmail">
-                                                                <i class="fas fa-envelope me-2"></i>Email
-                                                            </label>
-                                                            
-                                                            <input type="radio" class="btn-check" name="recipientContactType" id="recipientPhone" value="phone">
-                                                            <label class="btn btn-outline-primary" for="recipientPhone">
-                                                                <i class="fas fa-phone me-2"></i>Phone
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div id="recipientEmailField" class="contact-field">
-                                                        <input type="email" class="form-control" id="recipientEmailInput" 
-                                                            placeholder="recipient@example.com" required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter a valid email address
-                                                        </div>
-                                                    </div>
-                                                    <div id="recipientPhoneField" class="contact-field d-none">
-                                                        <input type="tel" class="form-control" id="recipientPhoneInput" 
-                                                            placeholder="(123) 456-7890" pattern="[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}" required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter a valid phone number
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="form-section">
-                                                <h5>Your Information</h5>
-                                                <div class="mb-3">
-                                                    <label for="senderName" class="form-label">Your Name</label>
-                                                    <input type="text" class="form-control" id="senderName" required>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Contact Method</label>
-                                                    <div class="contact-toggle mb-2">
-                                                        <div class="btn-group w-100" role="group">
-                                                            <input type="radio" class="btn-check" name="senderContactType" id="senderEmail" value="email" checked>
-                                                            <label class="btn btn-outline-primary" for="senderEmail">
-                                                                <i class="fas fa-envelope me-2"></i>Email
-                                                            </label>
-                                                            
-                                                            <input type="radio" class="btn-check" name="senderContactType" id="senderPhone" value="phone">
-                                                            <label class="btn btn-outline-primary" for="senderPhone">
-                                                                <i class="fas fa-phone me-2"></i>Phone
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div id="senderEmailField" class="contact-field">
-                                                        <input type="email" class="form-control" id="senderEmailInput" 
-                                                            placeholder="your@example.com" required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter a valid email address
-                                                        </div>
-                                                    </div>
-                                                    <div id="senderPhoneField" class="contact-field d-none">
-                                                        <input type="tel" class="form-control" id="senderPhoneInput" 
-                                                            placeholder="(123) 456-7890" pattern="[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}" required>
-                                                        <div class="invalid-feedback">
-                                                            Please enter a valid phone number
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="form-section mb-4">
-                                                <h5>Gift Message</h5>
-                                                <div class="mb-3">
-                                                    <label for="giftMessage" class="form-label">Personal Message</label>
-                                                    <textarea class="form-control" id="giftMessage" rows="3" placeholder="Enter your personal message here..."></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-section">
-                                                <h5>Select Card Design</h5>
-                                                <div class="design-grid">
-                                                    <label class="design-label">
-                                                        <input type="radio" name="cardDesign" value="Classic Design" class="d-none" checked>
-                                                        <div class="design-placeholder">
-                                                            <div class="design-preview">
-                                                                <div class="design-icon">
-                                                                    <i class="fas fa-gift"></i>
-                                                                </div>
-                                                                <h6 class="design-name mb-1">Classic</h6>
-                                                                <small class="design-style">Timeless Elegance</small>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                    
-                                                    <label class="design-label">
-                                                        <input type="radio" name="cardDesign" value="Modern Design" class="d-none">
-                                                        <div class="design-placeholder">
-                                                            <div class="design-preview">
-                                                                <div class="design-icon">
-                                                                    <i class="fas fa-star"></i>
-                                                                </div>
-                                                                <h6 class="design-name mb-1">Modern</h6>
-                                                                <small class="design-style">Contemporary Style</small>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                    
-                                                    <label class="design-label">
-                                                        <input type="radio" name="cardDesign" value="Elegant Design" class="d-none">
-                                                        <div class="design-placeholder">
-                                                            <div class="design-preview">
-                                                                <div class="design-icon">
-                                                                    <i class="fas fa-heart"></i>
-                                                                </div>
-                                                                <h6 class="design-name mb-1">Elegant</h6>
-                                                                <small class="design-style">Sophisticated Touch</small>
-                                                            </div>
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <button id="backToValue" class="btn btn-secondary">Back</button>
-                                        <button id="previewGiftCard" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#previewModal">Preview Gift Card</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Preview Modal -->
-                <div class="modal fade" id="previewModal" data-bs-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header bg-primary text-white">
-                                <h5 class="modal-title" id="previewModalLabel">Gift Card Preview</h5>
-                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="gift-card-preview">
-                                    <div class="card-design">
-                                        <div class="company-details mb-3">
-                                            <div class="company-logo text-center mb-2">
-                                                <img id="previewCardLogo" src="" alt="Company Logo" class="img-fluid" style="max-height: 60px;">
-                                            </div>
-                                            <h3 id="previewCompanyName" class="text-center mb-2"></h3>
-                                        </div>
-                                        <div class="gift-card-content">
-                                            <div class="amount-display text-center mb-4">
-                                                <h2 class="gift-amount"></h2>
-                                            </div>
-                                            <div class="message-section mb-4">
-                                                <p class="gift-message text-center"></p>
-                                            </div>
-                                            <div class="recipient-info">
-                                                <p class="text-center mb-1">To: <span class="recipient-name"></span></p>
-                                                <p class="text-center mb-1">From: <span class="sender-name"></span></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="confirmGiftCard">Confirm & Send</button>
-                            </div>
-                        </div>
+            <div class="flex justify-center">
+                <div class="w-full max-w-md bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+                    <div class="aspect-w-16 aspect-h-9 relative">
+                        <i class="fas fa-gift text-8xl text-white/80 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></i>
                     </div>
                 </div>
             </div>
@@ -368,9 +29,265 @@
     </div>
 </div>
 
+<!-- Categories Section -->
+<div id="categories" class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold text-gray-900 text-center mb-12">Choose Your Gift Card</h2>
+        
+        {% for category in categories %}
+        <div class="mb-16 last:mb-0">
+            <div class="flex justify-between items-center mb-8">
+                <h3 class="text-2xl font-bold text-gray-900">{{ category.name }}</h3>
+                <button class="btn-secondary view-all-btn" data-category="{{ category.name }}">
+                    View All {{ category.name }} Cards
+                </button>
+            </div>
+            
+            <div class="relative">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 card-scroll">
+                    {% for card in category.cards %}
+                    <div class="card-item">
+                        <button class="w-full bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 text-center card-category"
+                                data-card-id="{{ card.id }}"
+                                data-card-name="{{ card.name }}"
+                                data-card-logo="{{ card.logo }}">
+                            <div class="mb-4 h-24 flex items-center justify-center">
+                                {% if card.logo %}
+                                <img src="/static/images/{{ card.logo }}" alt="{{ card.name }}" class="max-h-full max-w-full object-contain">
+                                {% else %}
+                                <div class="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <span class="text-2xl font-bold text-indigo-600">{{ card.name[0] }}</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <h5 class="text-lg font-medium text-gray-900">{{ card.name }}</h5>
+                        </button>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <button class="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-white rounded-full shadow-lg p-3 scroll-btn scroll-left hover:bg-gray-50" data-direction="left">
+                    <i class="fas fa-chevron-left text-gray-600"></i>
+                </button>
+                <button class="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-white rounded-full shadow-lg p-3 scroll-btn scroll-right hover:bg-gray-50" data-direction="right">
+                    <i class="fas fa-chevron-right text-gray-600"></i>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Gift Card Forms -->
+<div id="giftCardForms" class="hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <!-- Value Selection Form -->
+        <div id="valueForm">
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                    <div class="px-8 py-6 bg-gradient-to-r from-indigo-600 to-purple-600">
+                        <h4 class="text-2xl font-bold text-white">Select Gift Card Value</h4>
+                        <p class="text-indigo-100 mt-2">Choose a preset amount or enter your own custom value</p>
+                    </div>
+                    <div class="p-8">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                            <button class="value-option group relative p-6 rounded-xl border-2 border-gray-100 hover:border-indigo-500 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-value="25">
+                                <span class="block text-3xl font-bold text-gray-900 group-hover:text-indigo-600">$25</span>
+                                <span class="text-sm text-gray-500 group-hover:text-indigo-500">Most Popular</span>
+                            </button>
+                            <button class="value-option group relative p-6 rounded-xl border-2 border-gray-100 hover:border-indigo-500 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-value="50">
+                                <span class="block text-3xl font-bold text-gray-900 group-hover:text-indigo-600">$50</span>
+                                <span class="text-sm text-gray-500 group-hover:text-indigo-500">Great Value</span>
+                            </button>
+                            <button class="value-option group relative p-6 rounded-xl border-2 border-gray-100 hover:border-indigo-500 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-value="100">
+                                <span class="block text-3xl font-bold text-gray-900 group-hover:text-indigo-600">$100</span>
+                                <span class="text-sm text-gray-500 group-hover:text-indigo-500">Premium</span>
+                            </button>
+                            <button class="value-option group relative p-6 rounded-xl border-2 border-gray-100 hover:border-indigo-500 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" data-value="200">
+                                <span class="block text-3xl font-bold text-gray-900 group-hover:text-indigo-600">$200</span>
+                                <span class="text-sm text-gray-500 group-hover:text-indigo-500">Deluxe</span>
+                            </button>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                <div class="w-full border-t border-gray-200"></div>
+                            </div>
+                            <div class="relative flex justify-center">
+                                <span class="px-4 bg-white text-sm text-gray-500">Or enter custom amount</span>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <div class="flex items-center space-x-4">
+                                <div class="relative flex-1">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <span class="text-gray-500 sm:text-lg">$</span>
+                                    </div>
+                                    <input type="number" id="customValue" class="pl-8 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-lg" placeholder="Enter amount">
+                                </div>
+                                <button id="setCustomValue" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    Set Value
+                                </button>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-500">Custom amount between $10 and $500</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personalization Form -->
+        <div id="personalizationForm" class="hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100">
+                    <div class="px-8 py-6 bg-gradient-to-r from-indigo-600 to-purple-600">
+                        <h4 class="text-2xl font-bold text-white">Personalize Your Gift Card</h4>
+                        <p class="text-indigo-100 mt-2">Add a personal touch to make your gift special</p>
+                    </div>
+                    <div class="p-8">
+                        <form id="giftCardForm" class="space-y-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                                <!-- Recipient Information -->
+                                <div class="space-y-6">
+                                    <div>
+                                        <h5 class="text-lg font-semibold text-gray-900 flex items-center">
+                                            <i class="fas fa-user-circle mr-2 text-indigo-500"></i>
+                                            Recipient Information
+                                        </h5>
+                                        <p class="text-sm text-gray-500 mt-1">Who is this gift card for?</p>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label for="recipientName" class="block text-sm font-medium text-gray-700">Recipient's Name <span class="text-red-500">*</span></label>
+                                            <input type="text" id="recipientName" required minlength="2" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Enter recipient's name">
+                                        </div>
+                                        <div>
+                                            <label for="recipientEmail" class="block text-sm font-medium text-gray-700">Recipient's Email <span class="text-red-500">*</span></label>
+                                            <input type="email" id="recipientEmail" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Enter recipient's email">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sender Information -->
+                                <div class="space-y-6">
+                                    <div>
+                                        <h5 class="text-lg font-semibold text-gray-900 flex items-center">
+                                            <i class="fas fa-paper-plane mr-2 text-indigo-500"></i>
+                                            Your Information
+                                        </h5>
+                                        <p class="text-sm text-gray-500 mt-1">Tell us about yourself</p>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label for="senderName" class="block text-sm font-medium text-gray-700">Your Name <span class="text-red-500">*</span></label>
+                                            <input type="text" id="senderName" required minlength="2" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Enter your name">
+                                        </div>
+                                        <div>
+                                            <label for="senderEmail" class="block text-sm font-medium text-gray-700">Your Email <span class="text-red-500">*</span></label>
+                                            <input type="email" id="senderEmail" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Enter your email">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Gift Message -->
+                                <div class="md:col-span-2 space-y-4">
+                                    <div>
+                                        <h5 class="text-lg font-semibold text-gray-900 flex items-center">
+                                            <i class="fas fa-heart mr-2 text-indigo-500"></i>
+                                            Personal Message
+                                        </h5>
+                                        <p class="text-sm text-gray-500 mt-1">Add a heartfelt message to your gift</p>
+                                    </div>
+                                    <div>
+                                        <label for="giftMessage" class="block text-sm font-medium text-gray-700">Gift Message <span class="text-gray-500">(Optional)</span></label>
+                                        <textarea id="giftMessage" rows="4" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" placeholder="Write your personal message here..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
+                                <button type="button" id="previewButton" class="inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <i class="fas fa-eye mr-2"></i>
+                                    Preview
+                                </button>
+                                <button type="submit" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <i class="fas fa-gift mr-2"></i>
+                                    Create Gift Card
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Preview Modal -->
+<div class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity" id="previewModal" aria-labelledby="previewModalLabel" aria-hidden="true">
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+            <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-4xl opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" id="previewModalContent">
+                <!-- Modal Header -->
+                <div class="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-2xl font-bold text-white">Gift Card Preview</h3>
+                        <button type="button" class="close-modal text-white/80 hover:text-white">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="text-indigo-100 mt-2">Review your gift card before proceeding to payment</p>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="bg-gray-50 px-8 py-6">
+                    <div id="previewContent" class="bg-white rounded-xl shadow-sm p-6"></div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="bg-white px-8 py-6 flex items-center justify-end space-x-4 border-t border-gray-100">
+                    <button type="button" class="close-modal inline-flex items-center px-6 py-3 border border-gray-300 shadow-sm text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <i class="fas fa-pencil-alt mr-2"></i>
+                        Edit Gift Card
+                    </button>
+                    <button type="button" id="proceedToPayment" class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <i class="fas fa-credit-card mr-2"></i>
+                        Proceed to Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="successToast" class="fixed bottom-4 right-4 transform translate-y-full opacity-0 transition-all duration-300 ease-out z-50">
+    <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-lg shadow-lg">
+        <div class="flex items-center">
+            <div class="flex-shrink-0">
+                <i class="fas fa-check-circle text-green-400 text-xl"></i>
+            </div>
+            <div class="ml-3">
+                <p class="text-sm font-medium text-green-800">
+                    Gift card created successfully! Opening preview...
+                </p>
+            </div>
+            <div class="ml-auto pl-3">
+                <div class="-mx-1.5 -my-1.5">
+                    <button type="button" class="close-toast inline-flex rounded-md p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50">
+                        <span class="sr-only">Dismiss</span>
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="{{ url_for('static', filename='js/giftcard.js') }}"></script>
 {% endblock %}

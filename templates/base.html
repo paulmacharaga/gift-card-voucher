@@ -3,79 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Gift Card Voucher{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Gift Card System</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Toast animations */
+        #successToast {
+            transition: all 0.3s ease-in-out;
+        }
+        #successToast.translate-y-0 {
+            transform: translateY(0);
+        }
+        #successToast.translate-y-full {
+            transform: translateY(100%);
+        }
+        .nav-link {
+            @apply px-3 py-2 text-sm font-medium text-gray-600 hover:text-indigo-600 transition-colors;
+        }
+        .nav-link.active {
+            @apply text-indigo-600;
+        }
+        .btn-primary {
+            @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+        }
+        .btn-secondary {
+            @apply inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+        }
+    </style>
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body class="min-h-screen bg-gray-50">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="/">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Gift Card Voucher" height="40">
-                <span class="ms-2 fw-bold text-primary">Gift Card Voucher</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/#categories">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/#how-it-works">How It Works</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/#contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn btn-primary text-white ms-lg-3 px-4" href="/#categories">Create Gift Card</a>
-                    </li>
-                </ul>
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <!-- Logo -->
+                    <a href="{{ url_for('index') }}" class="flex items-center">
+                        <i class="fas fa-gift text-2xl text-indigo-600"></i>
+                        <span class="ml-2 text-xl font-bold text-gray-900">GiftCards</span>
+                    </a>
+                    
+                    <!-- Primary Navigation -->
+                    <div class="hidden sm:ml-8 sm:flex space-x-8">
+                        <a href="{{ url_for('index') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium {{ 'text-indigo-600 border-b-2 border-indigo-600' if request.endpoint == 'index' else 'text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                            Home
+                        </a>
+                        <a href="{{ url_for('view_categories') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium {{ 'text-indigo-600 border-b-2 border-indigo-600' if request.endpoint == 'view_categories' else 'text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                            Categories
+                        </a>
+                        {% if session.get('is_admin') %}
+                        <a href="{{ url_for('admin_dashboard') }}" class="inline-flex items-center px-1 pt-1 text-sm font-medium {{ 'text-indigo-600 border-b-2 border-indigo-600' if request.endpoint == 'admin_dashboard' else 'text-gray-500 hover:text-gray-700 hover:border-gray-300' }}">
+                            Dashboard
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Secondary Navigation -->
+                <div class="hidden sm:flex sm:items-center">
+                    {% if session.get('is_admin') %}
+                    <a href="{{ url_for('admin_logout') }}" class="ml-4 inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <i class="fas fa-sign-out-alt mr-2"></i>
+                        Logout
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('admin_login') }}" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Admin Login
+                    </a>
+                    {% endif %}
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="flex items-center sm:hidden">
+                    <button type="button" id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="{{ url_for('index') }}" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium {{ 'text-indigo-700 border-indigo-500 bg-indigo-50' if request.endpoint == 'index' else 'text-gray-600 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
+                    Home
+                </a>
+                <a href="{{ url_for('view_categories') }}" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium {{ 'text-indigo-700 border-indigo-500 bg-indigo-50' if request.endpoint == 'view_categories' else 'text-gray-600 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
+                    Categories
+                </a>
+                {% if session.get('is_admin') %}
+                <a href="{{ url_for('admin_dashboard') }}" class="block pl-3 pr-4 py-2 border-l-4 text-base font-medium {{ 'text-indigo-700 border-indigo-500 bg-indigo-50' if request.endpoint == 'admin_dashboard' else 'text-gray-600 border-transparent hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800' }}">
+                    Dashboard
+                </a>
+                <a href="{{ url_for('admin_logout') }}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">
+                    Logout
+                </a>
+                {% else %}
+                <a href="{{ url_for('admin_login') }}" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">
+                    Admin Login
+                </a>
+                {% endif %}
             </div>
         </div>
     </nav>
 
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+                {% for category, message in messages %}
+                    <div class="rounded-md p-4 mb-4 {% if category == 'success' %}bg-green-50 text-green-800{% else %}bg-red-50 text-red-800{% endif %}" role="alert">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                {% if category == 'success' %}
+                                    <i class="fas fa-check-circle"></i>
+                                {% else %}
+                                    <i class="fas fa-exclamation-circle"></i>
+                                {% endif %}
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm font-medium">{{ message }}</p>
+                            </div>
+                            <div class="ml-auto pl-3">
+                                <div class="-mx-1.5 -my-1.5">
+                                    <button type="button" class="inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2 {% if category == 'success' %}text-green-500 hover:bg-green-100 focus:ring-green-600{% else %}text-red-500 hover:bg-red-100 focus:ring-red-600{% endif %}" onclick="this.parentElement.parentElement.parentElement.parentElement.remove()">
+                                        <span class="sr-only">Dismiss</span>
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
     <!-- Main Content -->
-    <main class="{% block main_class %}{% endblock %}">
+    <main>
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-light py-4 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Gift Card Voucher</h5>
-                    <p>Create and share personalized gift cards with your loved ones.</p>
+    <footer class="bg-gray-50 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-gift text-2xl text-indigo-600"></i>
+                        <span class="text-xl font-bold text-gray-900">GiftCards</span>
+                    </div>
+                    <p class="mt-4 text-gray-600 max-w-md">
+                        Your one-stop destination for digital gift cards. Choose from a wide selection of brands and send instantly to your loved ones.
+                    </p>
                 </div>
-                <div class="col-md-4">
-                    <h5>Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="/#categories" class="text-light">Categories</a></li>
-                        <li><a href="/#how-it-works" class="text-light">How It Works</a></li>
-                        <li><a href="/#contact" class="text-light">Contact</a></li>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Quick Links</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li>
+                            <a href="{{ url_for('index') }}" class="text-base text-gray-600 hover:text-indigo-600">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('view_categories') }}" class="text-base text-gray-600 hover:text-indigo-600">
+                                Categories
+                            </a>
+                        </li>
                     </ul>
                 </div>
-                <div class="col-md-4">
-                    <h5>Connect With Us</h5>
-                    <div class="social-links">
-                        <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
-                    </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Support</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li>
+                            <a href="#" class="text-base text-gray-600 hover:text-indigo-600">
+                                Contact Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-base text-gray-600 hover:text-indigo-600">
+                                FAQ
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="text-center mt-4">
-                <p class="mb-0">&copy; 2024 Gift Card Voucher. All rights reserved.</p>
+            <div class="mt-8 border-t border-gray-200 pt-8">
+                <p class="text-base text-gray-400 text-center">
+                    &copy; {{ now().year }} GiftCards. All rights reserved.
+                </p>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Toast Notification -->
+    <div id="toast" class="hidden fixed bottom-5 right-5 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-lg" role="alert">
+        <div class="flex">
+            <div class="flex-shrink-0">
+                <i class="fas fa-check-circle text-green-500"></i>
+            </div>
+            <div class="ml-3">
+                <p id="toastMessage" class="text-sm font-medium">
+                    Gift card created successfully!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu toggle script -->
+    <script>
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/giftcard.js') }}"></script>
+
     {% block extra_js %}{% endblock %}
 </body>
 </html>

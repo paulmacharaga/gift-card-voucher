@@ -1,0 +1,99 @@
+{
+    "categories": [
+        {
+            "name": "Shopping",
+            "cards": [
+                {
+                    "id": 1,
+                    "name": "Amazon",
+                    "logo": "amazon.png"
+                },
+                {
+                    "id": 2,
+                    "name": "Target",
+                    "logo": "target.png"
+                },
+                {
+                    "id": 3,
+                    "name": "Walmart",
+                    "logo": "walmart.png"
+                }
+            ],
+            "id": 1
+        },
+        {
+            "name": "Entertainment",
+            "cards": [
+                {
+                    "id": 4,
+                    "name": "Netflix",
+                    "logo": "netflix.png"
+                },
+                {
+                    "id": 5,
+                    "name": "Spotify",
+                    "logo": "spotify.png"
+                },
+                {
+                    "id": 6,
+                    "name": "PlayStation",
+                    "logo": "playstation.png"
+                },
+                {
+                    "id": 13,
+                    "name": "Pizza Inn",
+                    "logo": "pizza_inn_pizza_inn_logo-1x.jpg"
+                },
+                {
+                    "id": 14,
+                    "name": "Maile House",
+                    "description": "Cupiditate aperiam n",
+                    "price": 514.0,
+                    "validity": 20,
+                    "terms": "Eligendi ut dolor do",
+                    "created_by": "admin",
+                    "created_at": "2024-12-10T08:43:19.063017",
+                    "logo": "card_14_haefelis-logo.jpg"
+                }
+            ],
+            "id": 2
+        },
+        {
+            "name": "Food & Dining",
+            "cards": [
+                {
+                    "id": 7,
+                    "name": "Starbucks",
+                    "logo": "starbucks.png"
+                },
+                {
+                    "id": 9,
+                    "name": "DoorDash",
+                    "logo": "doordash.png"
+                },
+                {
+                    "id": 10,
+                    "name": "Chicken inn",
+                    "logo": "chicken_inn_ci-logo-106x200.jpg"
+                },
+                {
+                    "id": 11,
+                    "name": "Roco Mamas",
+                    "logo": "roco_mamas_rocomamas_logo-1x.jpg"
+                },
+                {
+                    "id": 12,
+                    "name": "Lillian Morgan",
+                    "description": "Dignissimos voluptat",
+                    "price": 10.0,
+                    "validity_days": 26,
+                    "terms": "Deserunt et aut porr",
+                    "logo": "galito-resized-logo.jpg",
+                    "created_at": "2024-12-09T20:53:06.184569",
+                    "validity": 30
+                }
+            ],
+            "id": 3
+        }
+    ]
+}
